@@ -38,16 +38,16 @@ def fetch_item():
     fields = ["Name", "BaseParam", "BaseParamValue"]
     client = XIVAPI()
     query = 'Name~"of Crafting"'
-    gathering_items = []
+    crafting_gear = []
     search = client.search(query=query, sheets=["Item"], fields=fields)
-    gathering_items.extend(create_data_dict(search, fields))
+    crafting_gear.extend(create_data_dict(search, fields))
     next = search["next"]
     while next:
         search = client.search_next(next=next, fields=fields)
         next = search["next"] if "next" in search.keys() else None
-        gathering_items.extend(create_data_dict(search, fields))
-    with open("gathering.txt", "w+") as f:
-        f.write(str(gathering_items))
+        crafting_gear.extend(create_data_dict(search, fields))
+    with open("crafting.txt", "w+") as f:
+        f.write(str(crafting_gear))
 
 
 def create_data_dict(search, fields):
